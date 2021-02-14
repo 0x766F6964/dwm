@@ -188,7 +188,6 @@ static Client *nexttiled(Client *c);
 static void pop(Client *);
 static void propertynotify(XEvent *e);
 static void quit(const Arg *arg);
-static void togglefakefull(const Arg *arg);
 static Monitor *recttomon(int x, int y, int w, int h);
 static void resize(Client *c, int x, int y, int w, int h, int interact);
 static void resizeclient(Client *c, int x, int y, int w, int h);
@@ -212,7 +211,9 @@ static void tag(const Arg *arg);
 static void tagmon(const Arg *arg);
 static void tile(Monitor *);
 static void togglebar(const Arg *arg);
+static void togglefakefull(const Arg *arg);
 static void togglefloating(const Arg *arg);
+static void togglefullscr(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
 static void unfocus(Client *c, int setfocus);
@@ -1724,6 +1725,12 @@ togglebar(const Arg *arg)
 }
 
 void
+togglefakefull(const Arg *arg)
+{
+	fakefullscreen = !fakefullscreen;
+}
+
+void
 togglefloating(const Arg *arg)
 {
 	if (!selmon->sel)
@@ -1738,9 +1745,10 @@ togglefloating(const Arg *arg)
 }
 
 void
-togglefakefull(const Arg *arg)
+togglefullscr(const Arg *arg)
 {
-	fakefullscreen = !fakefullscreen;
+	if (selmon->sel)
+		setfullscreen(selmon->sel, !selmon->sel->isfullscreen);
 }
 
 void
