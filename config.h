@@ -4,7 +4,7 @@
 #include <X11/XF86keysym.h>
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int padbar             = 8;        /* adjusts the bars padding */
 static const int showbar            = 1;        /* 0 means no bar */
@@ -86,8 +86,9 @@ static const char *volmucmd[]  = { "amixer", "-q", "set", "IEC958", "toggle", NU
 static const char *mpdtog[]    = { "mpdtoggle", NULL };
 static const char *mpdnext[]   = { "mpdnext", NULL };
 static const char *mpdprev[]   = { "mpdprev", NULL };
+static const char *music[]     = { "st", "-e", "ncmpcpp", NULL };
 static const char *lock[]      = { "slock", NULL };
-static const char *rotmon[]    = { "rotatemon", NULL };
+static const char *dispcon[]    = { "displaycon", NULL };
 static const char *rebootcmd[] = { "confirm", "reboot?", "doas /sbin/shutdown -r now", NULL };
 static const char *quitcmd[]   = { "confirm", "shutdown?", "doas /sbin/shutdown -h now", NULL };
 static const char *sleepcmd[]  = { "doas", "/usr/l/bin/zzz", NULL };
@@ -102,11 +103,12 @@ static Key keys[] = {
 	{ 0,				XF86XK_AudioNext,		spawn,		{.v = mpdnext } },
 	{ 0,				XF86XK_AudioPrev,		spawn,		{.v = mpdprev } },
 	{ MODKEY|ShiftMask,             XK_w,      			spawn,          SHCMD("furfox") },
+	{ MODKEY|ShiftMask,             XK_m,      			spawn,          {.v = music } },
 	{ MODKEY|ShiftMask,		XK_l,				spawn,		{.v = lock } },
 	{ WINKEY|ShiftMask,		XK_p,				spawn,		{.v = quitcmd } },
 	{ WINKEY|ShiftMask,		XK_r,				spawn,		{.v = rebootcmd } },
 	{ WINKEY|ShiftMask,		XK_z,				spawn,		{.v = sleepcmd } },
-	{ MODKEY|ShiftMask,		XK_r,				spawn,		{.v = rotmon } },
+	{ MODKEY|ShiftMask,		XK_r,				spawn,		{.v = dispcon } },
 	{ WINKEY|ShiftMask,		XK_2,				spawn,		SHCMD("xscreenshot | ff2png > "SCROT) },
 	{ WINKEY|ShiftMask,		XK_3,				spawn,		SHCMD("xscreenshot $(pfw) | ff2png > "SCROT) },
 	{ ControlMask,			XK_space,			spawn,		SHCMD("kill $(pgrep -n notify)") },
