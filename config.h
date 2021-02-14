@@ -127,16 +127,16 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 
 	/* Layouts */
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[5]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, /* tiled */
+	{ MODKEY|ShiftMask,             XK_y,      setlayout,      {.v = &layouts[1]} }, /* float */
+	{ MODKEY,                       XK_y,      setlayout,      {.v = &layouts[2]} }, /* monocole */
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[3]} }, /* bstack */
+	{ MODKEY|ShiftMask,             XK_u,      setlayout,      {.v = &layouts[4]} }, /* bstack h */
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[5]} }, /* grid */
+	{ MODKEY,                       XK_space,  setlayout,      {0} }, /* last layout */
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_f,      togglefullscr,  {0} },
-	{ MODKEY|ShiftMask,             XK_y,      togglefakefull, {0} },
+	{ MODKEY|ShiftMask,             XK_f,      togglefakefull, {0} },
 
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
