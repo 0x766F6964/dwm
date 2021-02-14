@@ -38,7 +38,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       4,            1,           -1 },
 	{ "mgba-sdl", NULL,       NULL,       0,            1,           -1 },
-/*	{ "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
+	{ "LibreWolf",  NULL,     NULL,       2,            0,           -1 },
 };
 
 /* layout(s) */
@@ -83,7 +83,6 @@ static const char *termcmd[]   = { "st", NULL };
  * static const char *volmucmd[]  = { "amixer", "-q", "set", "Speaker", "toggle", NULL };
  */
 static const char *volmucmd[]  = { "amixer", "-q", "set", "IEC958", "toggle", NULL };
-static const char *webcmd[]    = { "furfox", NULL };
 static const char *mpdtog[]    = { "mpdtoggle", NULL };
 static const char *mpdnext[]   = { "mpdnext", NULL };
 static const char *mpdprev[]   = { "mpdprev", NULL };
@@ -103,7 +102,7 @@ static Key keys[] = {
 	{ 0,				XF86XK_AudioPlay,		spawn,		{.v = mpdtog } },
 	{ 0,				XF86XK_AudioNext,		spawn,		{.v = mpdnext } },
 	{ 0,				XF86XK_AudioPrev,		spawn,		{.v = mpdprev } },
-	{ MODKEY|ShiftMask,             XK_w,      			spawn,          {.v = webcmd } },
+	{ MODKEY|ShiftMask,             XK_w,      			spawn,          SHCMD("furfox") },
 	{ MODKEY|ShiftMask,		XK_l,				spawn,		{.v = lock } },
 	{ WINKEY|ShiftMask,		XK_p,				spawn,		{.v = quitcmd } },
 	{ WINKEY|ShiftMask,		XK_r,				spawn,		{.v = rebootcmd } },
