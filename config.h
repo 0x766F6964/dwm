@@ -71,6 +71,9 @@ static const Layout layouts[] = {
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
+/* screenshot output file */
+#define SCROT "~/media/pic/screengrabs/$(date -u +%Y年%m月%d日%T).png"
+
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-i", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_gray1, "-sf", col_gray4, NULL };
@@ -85,8 +88,8 @@ static const char *mpdtog[]    = { "mpdtoggle", NULL };
 static const char *mpdnext[]   = { "mpdnext", NULL };
 static const char *mpdprev[]   = { "mpdprev", NULL };
 static const char *lock[]      = { "slock", NULL };
-static const char *rotleft[]   = { "/home/opask/bin/rotatemon", "DP-1", "left", NULL };
-static const char *rotnorm[]   = { "/home/opask/bin/rotatemon", "DP-1", "normal", NULL };
+static const char *rotleft[]   = { "rotatemon", "DP-1", "left", NULL };
+static const char *rotnorm[]   = { "rotatemon", "DP-1", "normal", NULL };
 static const char *rebootcmd[] = { "doas", "/sbin/shutdown", "-r", "now", NULL };
 static const char *quitcmd[]   = { "doas", "/sbin/shutdown", "-h", "now", NULL };
 static const char *sleepcmd[]  = { "doas", "/usr/l/bin/zzz", NULL };
@@ -100,15 +103,15 @@ static Key keys[] = {
 	{ 0,				XF86XK_AudioPlay,		spawn,		{.v = mpdtog } },
 	{ 0,				XF86XK_AudioNext,		spawn,		{.v = mpdnext } },
 	{ 0,				XF86XK_AudioPrev,		spawn,		{.v = mpdprev } },
-	{ MODKEY|ShiftMask,             XK_b,      			spawn,          {.v = webcmd } },
+	{ MODKEY|ShiftMask,             XK_w,      			spawn,          {.v = webcmd } },
 	{ MODKEY|ShiftMask,		XK_l,				spawn,		{.v = lock } },
 	{ WINKEY|ShiftMask,		XK_p,				spawn,		{.v = quitcmd } },
 	{ WINKEY|ShiftMask,		XK_r,				spawn,		{.v = rebootcmd } },
 	{ WINKEY|ShiftMask,		XK_z,				spawn,		{.v = sleepcmd } },
 	{ WINKEY|ShiftMask,		XK_9,				spawn,		{.v = rotleft } },
 	{ WINKEY|ShiftMask,		XK_0,				spawn,		{.v = rotnorm } },
-	{ WINKEY|ShiftMask,		XK_2,				spawn,		SHCMD("xscreenshot | ff2png > ~/media/pic/screengrabs/$(date -u +%Y年%m月%d日%T).png") },
-	{ WINKEY|ShiftMask,		XK_3,				spawn,		SHCMD("xscreenshot $(pfw) | ff2png > ~/media/pic/screengrabs/$(date -u +%Y年%m月%d日%T).png") },
+	{ WINKEY|ShiftMask,		XK_2,				spawn,		SHCMD("xscreenshot | ff2png > "SCROT) },
+	{ WINKEY|ShiftMask,		XK_3,				spawn,		SHCMD("xscreenshot $(pfw) | ff2png > "SCROT) },
 	{ ControlMask,			XK_space,			spawn,		SHCMD("kill $(pgrep -n notify)") },
 	{ MODKEY,                       XK_p,      			spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, 			spawn,          {.v = termcmd } },
