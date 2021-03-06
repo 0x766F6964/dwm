@@ -73,6 +73,11 @@ static const Layout layouts[] = {
 
 /* screenshot output file */
 #define SCROT "~/media/pic/screengrabs/$(date -u +%Y年%m月%d日%T).png"
+#define FULL_SCR "xscreenshot | ff2png > "SCROT
+#define WIN_SCR "xscreenshot $(pfw) | ff2png > "SCROT
+#define SEL_P_SCR "import -window root -crop $(slop -f '%g') png:- | tee "SCROT" |xclip -sel clip -t image/png"
+/* anki barfs on pngs so until I upgrade it we have this extra */
+#define SEL_J_SCR "import -window root -crop $(slop -f '%g') jpg:- | xclip -sel clip -t image/jpg"
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -86,7 +91,7 @@ static const char *volmucmd[]  = { "amixer", "-q", "set", "IEC958", "toggle", NU
 static const char *mpdtog[]    = { "mpdtoggle", NULL };
 static const char *mpdnext[]   = { "mpdnext", NULL };
 static const char *mpdprev[]   = { "mpdprev", NULL };
-static const char *music[]     = { "st", "-e", "ncmpcpp", NULL };
+static const char *music[]     = { "st", "-z", "32", "-e", "ncmpcpp", NULL };
 static const char *lock[]      = { "slock", NULL };
 static const char *dispcon[]    = { "displaycon", NULL };
 static const char *rebootcmd[] = { "confirm", "reboot?", "doas /sbin/shutdown -r now", NULL };
@@ -109,17 +114,20 @@ static Key keys[] = {
 	{ WINKEY|ShiftMask,		XK_r,				spawn,		{.v = rebootcmd } },
 	{ WINKEY|ShiftMask,		XK_z,				spawn,		{.v = sleepcmd } },
 	{ MODKEY|ShiftMask,		XK_r,				spawn,		{.v = dispcon } },
-	{ WINKEY|ShiftMask,		XK_2,				spawn,		SHCMD("xscreenshot | ff2png > "SCROT) },
-	{ WINKEY|ShiftMask,		XK_3,				spawn,		SHCMD("xscreenshot $(pfw) | ff2png > "SCROT) },
+	{ WINKEY|ShiftMask,             XK_2,                           spawn,          SHCMD(FULL_SCR) },
+	{ WINKEY|ShiftMask,             XK_3,                           spawn,          SHCMD(WIN_SCR) },
+	{ MODKEY|ShiftMask,             XK_p,                           spawn,          SHCMD(SEL_P_SCR) },
+	{ MODKEY,                       XK_o,                           spawn,          SHCMD(SEL_J_SCR) },
 	{ ControlMask,			XK_space,			spawn,		SHCMD("kill $(pgrep -n notify)") },
-	{ MODKEY,                       XK_p,      			spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_p,                           spawn,          SHCMD("passmenu") },
+	{ MODKEY,                       XK_d,      			spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, 			spawn,          {.v = termcmd } },
 
 	{ MODKEY,                       XK_b,      			togglebar,      {0} },
 	{ MODKEY,                       XK_j,      			focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      			focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      			incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.01} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.01} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
