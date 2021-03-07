@@ -25,7 +25,7 @@ static const char *colors[][3]      = {
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray1 },
 	[SchemeSel]  = { col_gray4, col_gray1, col_cyan },
 };
-static int fakefullscreen          = 1;
+static int fakefullscreen           = 1;
 
 /* tagging */
 static const char *tags[] = { "一", "二", "三", "四", "五", "六", "七", "八", "九" };
@@ -61,7 +61,8 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod1Mask
-#define WINKEY Mod4Mask
+#define ALTKEY Mod1Mask
+#define SUPKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -110,20 +111,21 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_w,      			spawn,          SHCMD("furfox") },
 	{ MODKEY|ShiftMask,             XK_m,      			spawn,          {.v = music } },
 	{ MODKEY|ShiftMask,		XK_l,				spawn,		{.v = lock } },
-	{ WINKEY|ShiftMask,		XK_p,				spawn,		{.v = quitcmd } },
-	{ WINKEY|ShiftMask,		XK_r,				spawn,		{.v = rebootcmd } },
-	{ WINKEY|ShiftMask,		XK_z,				spawn,		{.v = sleepcmd } },
+	{ SUPKEY|ShiftMask,		XK_p,				spawn,		{.v = quitcmd } },
+	{ SUPKEY|ShiftMask,		XK_r,				spawn,		{.v = rebootcmd } },
+	{ SUPKEY|ShiftMask,		XK_z,				spawn,		{.v = sleepcmd } },
 	{ MODKEY|ShiftMask,		XK_r,				spawn,		{.v = dispcon } },
-	{ WINKEY|ShiftMask,             XK_2,                           spawn,          SHCMD(FULL_SCR) },
-	{ WINKEY|ShiftMask,             XK_3,                           spawn,          SHCMD(WIN_SCR) },
+	{ SUPKEY|ShiftMask,             XK_2,                           spawn,          SHCMD(FULL_SCR) },
+	{ SUPKEY|ShiftMask,             XK_3,                           spawn,          SHCMD(WIN_SCR) },
 	{ MODKEY|ShiftMask,             XK_p,                           spawn,          SHCMD(SEL_P_SCR) },
 	{ MODKEY,                       XK_o,                           spawn,          SHCMD(SEL_J_SCR) },
 	{ ControlMask,			XK_space,			spawn,		SHCMD("kill $(pgrep -n notify)") },
 	{ MODKEY,                       XK_p,                           spawn,          SHCMD("passmenu") },
+	{ MODKEY,                       XK_b,                           spawn,          SHCMD("bookmarks") },
 	{ MODKEY,                       XK_d,      			spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, 			spawn,          {.v = termcmd } },
 
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -165,7 +167,7 @@ static Key keys[] = {
 };
 
 /* button definitions */
-/* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
+/* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
 	/* click                event mask      button          function        argument */
 	{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
