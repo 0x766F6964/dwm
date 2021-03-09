@@ -39,6 +39,7 @@ static const Rule rules[] = {
 	{ "Gimp",     NULL,       NULL,       4,            1,           -1 },
 	{ "mgba-sdl", NULL,       NULL,       0,            1,           -1 },
 	{ "LibreWolf",  NULL,     NULL,       2,            0,           -1 },
+	{ NULL,       "spterm",   NULL,       SPTAG(0),     1,           -1 },
 };
 
 /* layout(s) */
@@ -94,10 +95,22 @@ static const char *mpdnext[]   = { "mpdnext", NULL };
 static const char *mpdprev[]   = { "mpdprev", NULL };
 static const char *music[]     = { "st", "-z", "32", "-e", "ncmpcpp", NULL };
 static const char *lock[]      = { "slock", NULL };
-static const char *dispcon[]    = { "displaycon", NULL };
+static const char *dispcon[]   = { "displaycon", NULL };
 static const char *rebootcmd[] = { "confirm", "reboot?", "doas /sbin/shutdown -r now", NULL };
 static const char *quitcmd[]   = { "confirm", "shutdown?", "doas /sbin/shutdown -h now", NULL };
 static const char *sleepcmd[]  = { "doas", "/usr/l/bin/zzz", NULL };
+
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spcmd1[] = {"st", "-n", "spterm", "-g", "120x34", NULL };
+const char *spcmd2[] = {"st", "-n", "spcalc", "-g", "50x20", "-z", "16", "-e", "bc", "-lq", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spterm",      spcmd1},
+	{"spcalc",      spcmd2},
+};
 
 static Key keys[] = {
 	/* modifier                     key        			function        argument */
@@ -123,7 +136,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,                           spawn,          SHCMD("passmenu") },
 	{ MODKEY,                       XK_b,                           spawn,          SHCMD("bookmarks") },
 	{ MODKEY,                       XK_d,      			spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, 			spawn,          {.v = termcmd } },
+	{ MODKEY,                       XK_Return, 			spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_Return,                      togglescratch,  {.ui = 0 } },
 
 	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -132,7 +146,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.01} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.01} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
+	{ MODKEY,                       XK_w,      zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 
