@@ -132,7 +132,6 @@ static Key keys[] = {
 	{ SUPKEY|ShiftMask,             XK_3,                           spawn,          SHCMD(WIN_SCR) },
 	{ MODKEY|ShiftMask,             XK_p,                           spawn,          SHCMD(SEL_P_SCR) },
 	{ MODKEY,                       XK_o,                           spawn,          SHCMD(SEL_J_SCR) },
-	{ ControlMask,			XK_space,			spawn,		SHCMD("kill $(pgrep -n notify)") },
 	{ MODKEY,                       XK_p,                           spawn,          SHCMD("passmenu") },
 	{ MODKEY,                       XK_b,                           spawn,          SHCMD("bookmarks") },
 	{ MODKEY,                       XK_d,      			spawn,          {.v = dmenucmd } },
