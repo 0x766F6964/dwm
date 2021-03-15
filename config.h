@@ -100,6 +100,7 @@ static const char *rebootcmd[] = { "confirm", "reboot?", "doas /sbin/shutdown -r
 static const char *quitcmd[]   = { "confirm", "shutdown?", "doas /sbin/shutdown -h now", NULL };
 static const char *sleepcmd[]  = { "doas", "/usr/l/bin/zzz", NULL };
 
+/* scratchpads */
 typedef struct {
 	const char *name;
 	const void *cmd;
@@ -123,7 +124,7 @@ static Key keys[] = {
 	{ 0,				XF86XK_AudioPrev,		spawn,		{.v = mpdprev } },
 	{ MODKEY|ShiftMask,             XK_w,      			spawn,          SHCMD("furfox") },
 	{ MODKEY|ShiftMask,             XK_m,      			spawn,          {.v = music } },
-	{ MODKEY|ShiftMask,		XK_l,				spawn,		{.v = lock } },
+	{ SUPKEY|ShiftMask,		XK_l,				spawn,		{.v = lock } },
 	{ SUPKEY|ShiftMask,		XK_p,				spawn,		{.v = quitcmd } },
 	{ SUPKEY|ShiftMask,		XK_r,				spawn,		{.v = rebootcmd } },
 	{ SUPKEY|ShiftMask,		XK_z,				spawn,		{.v = sleepcmd } },
@@ -138,16 +139,18 @@ static Key keys[] = {
 	{ MODKEY,                       XK_Return, 			spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_Return,                      togglescratch,  {.ui = 0 } },
 
-	{ MODKEY|ShiftMask,             XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.01} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.01} },
-	{ MODKEY,                       XK_w,      zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY|ShiftMask,             XK_b,          togglebar,    {0} },
+	{ MODKEY,                       XK_j,          focusstack,   {.i = +1 } },
+	{ MODKEY,                       XK_k,          focusstack,   {.i = -1 } },
+	{ MODKEY,                       XK_i,          incnmaster,   {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_i,          incnmaster,   {.i = -1 } },
+	{ MODKEY,                       XK_h,          setmfact,     {.f = -0.01} },
+	{ MODKEY,                       XK_l,          setmfact,     {.f = +0.01} },
+	{ MODKEY,                       XK_w,          zoom,         {0} },
+	{ MODKEY,                       XK_Tab,        view,         {0} },
+	{ MODKEY|ShiftMask,             XK_c,          killclient,   {0} },
+	{ MODKEY,                       XK_g,          shiftview,    {.i = -1} },
+	{ MODKEY,                       XK_semicolon,  shiftview,    {.i = +1} },
 
 	/* Layouts */
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, /* tiled */
